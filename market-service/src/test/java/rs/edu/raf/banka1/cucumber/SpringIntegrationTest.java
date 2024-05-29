@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -24,6 +25,7 @@ import java.util.List;
 @CucumberContextConfiguration
 //@Sql("/bank_test.sql")
 //@DirtiesContext
+@ActiveProfiles("int_test")
 public class SpringIntegrationTest {
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
@@ -37,7 +39,7 @@ public class SpringIntegrationTest {
     public static ComposeContainer enviroment = new ComposeContainer(new File("../docker-compose-test.yaml"))
             .withExposedService("user-service", 8080)
             .withExposedService("market-service", 8081)
-            .withExposedService("fetching-service", 8082)
+//            .withExposedService("fetching-service", 8082)
             .withExposedService("mysql", 3306)
             //.withLocalCompose(true)
             .withTailChildContainers(true)

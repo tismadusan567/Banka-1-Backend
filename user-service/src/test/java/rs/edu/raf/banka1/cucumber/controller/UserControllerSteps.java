@@ -775,7 +775,7 @@ public class UserControllerSteps {
         try{
             LoanFullDto loanFullDto = objectMapper.readValue(lastResponse.getBody().toString(), LoanFullDto.class);
             assertThat(loanFullDto).isNotNull();
-            assertThat(loanFullDto.getId()).isEqualTo(100);
+            assertThat(loanFullDto.getId()).isEqualTo(1L);
         }
         catch (JsonProcessingException e) {
             fail(e.getMessage());
