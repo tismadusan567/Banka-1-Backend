@@ -1,10 +1,11 @@
 version: "3"
 services:
   mysql:
-    build:
-      context: .
-      dockerfile: Dockerfile-mysql
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-mysql
     restart: always
+    image: mysql:latest
     #container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -20,8 +21,8 @@ services:
       retries: 100
   #    security_opt:
   #      - seccomp:unconfined
-  #    volumes:
-  #        - ./inittest.sql:/docker-entrypoint-initdb.d/inittest.sql
+    volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   user-service:
     build:
