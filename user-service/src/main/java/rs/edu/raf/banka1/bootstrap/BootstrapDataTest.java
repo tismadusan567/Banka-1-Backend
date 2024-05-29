@@ -34,6 +34,7 @@ public class BootstrapDataTest implements CommandLineRunner {
     private final TransferService transferService;
     private final EmployeeService employeeService;
     private final OrderRepository orderRepository;
+    private final BankAccountRepository bankAccountRepository;
 
     @Autowired
     public BootstrapDataTest(
@@ -52,7 +53,9 @@ public class BootstrapDataTest implements CommandLineRunner {
             final CapitalRepository capitalRepository,
             final EmployeeService employeeService,
             final OrderRepository orderRepository,
-            final TransferService transferService) {
+            final TransferService transferService,
+            final BankAccountRepository bankAccountRepository
+    ) {
 
         this.employeeRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -70,11 +73,14 @@ public class BootstrapDataTest implements CommandLineRunner {
         this.employeeService = employeeService;
         this.orderRepository = orderRepository;
         this.transferService = transferService;
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     private final ScheduledExecutorService resetLimitExecutor = Executors.newScheduledThreadPool(1);
     @Override
     public void run(String... args) throws Exception {
+
+        System.out.println("BootstrapDataTest loading data...");
         List<String> permissionNames = List.of(
                 "can_manage_users",
                 "readUser",
@@ -171,6 +177,60 @@ public class BootstrapDataTest implements CommandLineRunner {
         currencyRepository.save(currency1);
         currencyRepository.save(currency2);
         currencyRepository.save(currency3);
+
+        BankAccount bankAccount1 = createBankAccount(true, AccountType.CURRENT, 10000.0,12000.0, 100.0, null, 100L, 1710959528, currency1, customer1, 2710959528L, 100, "test", "1234567890", "subtest");
+        BankAccount bankAccount2 = createBankAccount(true, AccountType.CURRENT,  10000.0,12000.0, 100.0, null, 100L, 1710959558, currency2, customer1, 2710959528L, 101,"test1", "0987654321", "subtest");
+        BankAccount bankAccount3 = createBankAccount(true, AccountType.CURRENT, 12000.0,14000.0, 100.0, company1, 100L, 1710959558, currency2, null, 2710959528L, 102, "test1", "7151517151", "subtest");
+        BankAccount bankAccount4 = createBankAccount(true, AccountType.CURRENT,12000.0, 14000.0, 100.0, company2, 100L, 1710959558, currency2, null, 2710959528L, 103, "test1", "1515151717", "subtest");
+
+        BankAccount bankAccount5 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency1, null, 1871769600L, 9, "Banks account", "131242095807818250", null);
+        BankAccount bankAccount6 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency2, null, 1871769600L, 9, "Banks account", "131242095807818251", null);
+        BankAccount bankAccount7 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency3, null, 1871769600L, 9, "Banks account", "131242095807818251", null);
+
+        bankAccountRepository.saveAll(List.of(bankAccount1, bankAccount2, bankAccount3, bankAccount4, bankAccount5, bankAccount6, bankAccount7));
+
+        //todo: promeni listing_id
+        Capital capital1 = createCapital(ListingType.STOCK, 0.0, 30.0, bankAccount1, 1001L, 100003L, "testticker", 0.0);
+        Capital capital2 = createCapital(ListingType.FOREX, 0.0, 36.0, bankAccount1, 1002L, 100001L, "testticker", 5.0);
+        Capital capital3 = createCapital(ListingType.FUTURE, 0.0, 35.0, bankAccount3, 1003L, 100002L, "testticker", 3.0);
+        Capital capital4 = createCapital(ListingType.FOREX, 0.0, 35.0, bankAccount3, 1004L, 100001L, "testticker", 0.0);
+
+        capitalRepository.saveAll(List.of(capital1, capital2, capital3, capital4));
+
+
+    }
+
+    private Capital createCapital(ListingType listing_type, double reserved,  double total, BankAccount bankAccount, Long id, Long listing_id, String ticker, double public_total) {
+        Capital capital = new Capital();
+        capital.setListingType(listing_type);
+        capital.setReserved(reserved);
+        capital.setTotal(total);
+        capital.setBankAccount(bankAccount);
+        capital.setId(id);
+        capital.setListingId(listing_id);
+        capital.setTicker(ticker);
+        capital.setPublicTotal(public_total);
+        return capital;
+    }
+
+    private BankAccount createBankAccount(boolean account_status, AccountType account_type, double available_balance, double balance,  Double maintenance_cost, Company company, Long created_by_agent_id, long creation_date, Currency currency, Customer customer, long expiration_date, long id, String account_name, String account_number, String subtype_of_account) {
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setAccountStatus(account_status);
+        bankAccount.setAccountType(account_type);
+        bankAccount.setBalance(balance);
+        bankAccount.setAvailableBalance(available_balance);
+        bankAccount.setMaintenanceCost(maintenance_cost);
+        bankAccount.setCompany(company);
+        bankAccount.setCreatedByAgentId(created_by_agent_id);
+        bankAccount.setCreationDate(creation_date);
+        bankAccount.setCurrency(currency);
+        bankAccount.setCustomer(customer);
+        bankAccount.setExpirationDate(expiration_date);
+        bankAccount.setId(id);
+        bankAccount.setAccountName(account_name);
+        bankAccount.setAccountNumber(account_number);
+        bankAccount.setSubtypeOfAccount(subtype_of_account);
+        return bankAccount;
     }
 
     private Currency createCurrency(long id, boolean active, String country, String curCode, String curDesc, String curName, String curSymbol, double toRSD, double fromRSD) {
