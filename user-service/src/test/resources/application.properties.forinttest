@@ -24,3 +24,11 @@ server.port=8080
 front.port=4200
 server.servlet.context-path=/
 oauth.jwt.secret=secret_key
+
+# API TOKENS:
+exchangeRateAPIToken=4459637dd05bd06367a6fa32
+
+# API URLs:
+exchangeRateApiUrl= https://v6.exchangerate-api.com/v6/
+
+marketServiceUrl =http://localhost:8081

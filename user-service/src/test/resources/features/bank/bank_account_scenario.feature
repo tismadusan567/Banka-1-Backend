@@ -8,7 +8,7 @@ Feature: customers and employees can interact with bank accounts
     And new currencyCode is "TST"
     And new subtype is "PERSONAL"
     And new maintenanceFee is 100.0
-    And new customerId is 101
+    And new customerId is 2
     When user calls POST on "/account/create"
     Then i should get response with status 200
 
@@ -27,7 +27,7 @@ Feature: customers and employees can interact with bank accounts
 
   Scenario: employee wants to grab all bank accounts he created
     Given i am logged in with email "admin@admin.com" and password "admin"
-    When User calls get on "/account/getCreator/100"
+    When User calls get on "/account/getCreator/1"
     Then i should get response with status 200
     And i should get both bank account i created
 
@@ -39,13 +39,13 @@ Feature: customers and employees can interact with bank accounts
 
   Scenario: employee can grab all personal accounts from user
     Given i am logged in with email "admin@admin.com" and password "admin"
-    When User calls get on "/account/getCustomer/101"
+    When User calls get on "/account/getCustomer/2"
     Then i should get response with status 200
     And i should get personal bank account i created
 
   Scenario: employee can grab all cards from customer
     Given i am logged in with email "admin@admin.com" and password "admin"
-    When User calls get on "/account/getAllCards/101"
+    When User calls get on "/account/getAllCards/2"
     Then i should get response with status 200
 
   Scenario: employee can grab all cards using bank account

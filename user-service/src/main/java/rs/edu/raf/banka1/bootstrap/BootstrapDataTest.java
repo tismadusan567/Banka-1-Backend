@@ -178,16 +178,32 @@ public class BootstrapDataTest implements CommandLineRunner {
         currencyRepository.save(currency2);
         currencyRepository.save(currency3);
 
-        BankAccount bankAccount1 = createBankAccount(true, AccountType.CURRENT, 10000.0,12000.0, 100.0, null, 100L, 1710959528, currency1, customer1, 2710959528L, 100, "test", "1234567890", "subtest");
-        BankAccount bankAccount2 = createBankAccount(true, AccountType.CURRENT,  10000.0,12000.0, 100.0, null, 100L, 1710959558, currency2, customer1, 2710959528L, 101,"test1", "0987654321", "subtest");
-        BankAccount bankAccount3 = createBankAccount(true, AccountType.CURRENT, 12000.0,14000.0, 100.0, company1, 100L, 1710959558, currency2, null, 2710959528L, 102, "test1", "7151517151", "subtest");
-        BankAccount bankAccount4 = createBankAccount(true, AccountType.CURRENT,12000.0, 14000.0, 100.0, company2, 100L, 1710959558, currency2, null, 2710959528L, 103, "test1", "1515151717", "subtest");
+        BankAccount bankAccount1 = createBankAccount(true, AccountType.CURRENT, 10000.0,12000.0, 100.0, null, 1L, 1710959528, currency1, customer1, 2710959528L, 100, "test", "1234567890", "subtest");
+        BankAccount bankAccount2 = createBankAccount(true, AccountType.CURRENT,  10000.0,12000.0, 100.0, null, 1L, 1710959558, currency2, customer1, 2710959528L, 101,"test1", "0987654321", "subtest");
+        BankAccount bankAccount3 = createBankAccount(true, AccountType.CURRENT, 12000.0,14000.0, 100.0, company1, 1L, 1710959558, currency2, null, 2710959528L, 102, "test1", "7151517151", "subtest");
+        BankAccount bankAccount4 = createBankAccount(true, AccountType.CURRENT,12000.0, 14000.0, 100.0, company2, 1L, 1710959558, currency2, null, 2710959528L, 103, "test1", "1515151717", "subtest");
 
         BankAccount bankAccount5 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency1, null, 1871769600L, 9, "Banks account", "131242095807818250", null);
         BankAccount bankAccount6 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency2, null, 1871769600L, 9, "Banks account", "131242095807818251", null);
         BankAccount bankAccount7 = createBankAccount(false, AccountType.BUSINESS,1000000.0, 1000000.0, null, company1, null, 1714003200, currency3, null, 1871769600L, 9, "Banks account", "131242095807818251", null);
 
         bankAccountRepository.saveAll(List.of(bankAccount1, bankAccount2, bankAccount3, bankAccount4, bankAccount5, bankAccount6, bankAccount7));
+
+        Loan loan = new Loan();
+        loan.setAccountNumber("1234567890");
+        loan.setCurrency("TST");
+        loan.setEffectiveInterestRate(0.0);
+        loan.setInstallmentAmount(0.0);
+        loan.setLoanAmount(0.0);
+        loan.setLoanType(LoanType.PERSONAL);
+        loan.setNominalInterestRate(0.0);
+        loan.setRemainingDebt(0.0);
+        loan.setRepaymentPeriod(0);
+        loan.setAgreementDate(0L);
+//        loan.setId(100);
+        loan.setMaturityDate(0L);
+        loan.setNextInstallmentDate(0L);
+        loanRepository.save(loan);
 
         //todo: promeni listing_id
         Capital capital1 = createCapital(ListingType.STOCK, 0.0, 30.0, bankAccount1, 1001L, 100003L, "testticker", 0.0);
@@ -206,8 +222,9 @@ public class BootstrapDataTest implements CommandLineRunner {
         capital.setReserved(reserved);
         capital.setTotal(total);
         capital.setBankAccount(bankAccount);
-        capital.setId(id);
-        capital.setListingId(listing_id);
+//        capital.setId(id);
+        capital.setListingId
+                (listing_id);
         capital.setTicker(ticker);
         capital.setPublicTotal(public_total);
         return capital;
@@ -226,7 +243,7 @@ public class BootstrapDataTest implements CommandLineRunner {
         bankAccount.setCurrency(currency);
         bankAccount.setCustomer(customer);
         bankAccount.setExpirationDate(expiration_date);
-        bankAccount.setId(id);
+//        bankAccount.setId(id);
         bankAccount.setAccountName(account_name);
         bankAccount.setAccountNumber(account_number);
         bankAccount.setSubtypeOfAccount(subtype_of_account);
@@ -235,7 +252,7 @@ public class BootstrapDataTest implements CommandLineRunner {
 
     private Currency createCurrency(long id, boolean active, String country, String curCode, String curDesc, String curName, String curSymbol, double toRSD, double fromRSD) {
         Currency currency = new Currency();
-        currency.setId(id);
+//        currency.setId(id);
         currency.setActive(active);
         currency.setCountry(country);
         currency.setCurrencyCode(curCode);
@@ -249,7 +266,7 @@ public class BootstrapDataTest implements CommandLineRunner {
 
     private Company createCompany(long id, String companyName, String faxNumber, String idNumber, String jobId, String pib, String regNumber, String telNumber) {
         Company company = new Company();
-        company.setId(id);
+//        company.setId(id);
         company.setCompanyName(companyName);
         company.setFaxNumber(faxNumber);
         company.setIdNumber(idNumber);
@@ -262,7 +279,7 @@ public class BootstrapDataTest implements CommandLineRunner {
 
     private Customer createCustomer(long id, boolean active, String email, String firstName, String jmbg, String lastName, String password, String phoneNumber) {
         Customer customer = new Customer();
-        customer.setUserId(id);
+//        customer.setUserId(id);
         customer.setActive(active);
         customer.setEmail(email);
         customer.setFirstName(firstName);
@@ -275,7 +292,7 @@ public class BootstrapDataTest implements CommandLineRunner {
 
     private Employee createEmployee(long id, boolean active, String email, String firstName, String jmbg, String lastName, String password, String phoneNumber, String position) {
         Employee employee = new Employee();
-        employee.setUserId(id);
+//        employee.setUserId(id);
         employee.setActive(active);
         employee.setEmail(email);
         employee.setFirstName(firstName);
@@ -289,7 +306,7 @@ public class BootstrapDataTest implements CommandLineRunner {
 
     private Permission createPermission(long id, String description, String name) {
         Permission p = new Permission();
-        p.setPermissionId(id);
+//        p.setPermissionId(id);
         p.setDescription(description);
         p.setName(name);
 

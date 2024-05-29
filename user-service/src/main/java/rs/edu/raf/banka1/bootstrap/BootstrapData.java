@@ -33,7 +33,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Component
-@Profile("!test")
+@Profile("!test & !int_test")
 public class BootstrapData implements CommandLineRunner {
 //    private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;

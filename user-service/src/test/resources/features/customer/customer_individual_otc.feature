@@ -19,7 +19,7 @@ Feature: individual customer can make his stocks public, other customers can buy
     Given i am logged in as customer with email "user123@test.com" and password "admin"
     And i want to buy 5.0 stocks
     And i offer him price of 1000.0 RSD
-    And seller id is 101
+    And seller id is 2
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
 
@@ -48,7 +48,7 @@ Feature: individual customer can make his stocks public, other customers can buy
     Given i am logged in as customer with email "user123@test.com" and password "admin"
     And i want to buy 5.0 stocks
     And i offer him price of 1500.0 RSD
-    And seller id is 101
+    And seller id is 2
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
 
@@ -98,7 +98,7 @@ Feature: individual customer can make his stocks public, other customers can buy
     Given i am logged in as customer with email "user123@test.com" and password "admin"
     And i want to buy 2.0 stocks
     And i offer him price of 1200.0 RSD
-    And seller id is 101
+    And seller id is 2
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
 

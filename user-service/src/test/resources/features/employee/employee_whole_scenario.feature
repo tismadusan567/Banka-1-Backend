@@ -35,7 +35,7 @@ Feature: admin can create new employees, view them and edit them
 
   Scenario: admin grabs employee by id
     Given i am logged in with email "admin@admin.com" and password "admin"
-    When User calls get on "/employee/get/100"
+    When User calls get on "/employee/get/1"
     Then i should get response with status 200
 
   @Ignore

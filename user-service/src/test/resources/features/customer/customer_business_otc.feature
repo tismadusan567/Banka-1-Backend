@@ -19,7 +19,7 @@ Feature: business customer can make their listings public, other business custom
     Given i am logged in as customer with email "pravno_lice_buyer@test.com" and password "admin"
     And i want to buy 5.0 forex
     And i offer him price of 1000.0 RSD
-    And seller id is 103
+    And seller id is 4
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
 
@@ -48,7 +48,7 @@ Feature: business customer can make their listings public, other business custom
     Given i am logged in as customer with email "pravno_lice_buyer@test.com" and password "admin"
     And i want to buy 5.0 forex
     And i offer him price of 1500.0 RSD
-    And seller id is 103
+    And seller id is 4
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
     
@@ -98,7 +98,7 @@ Feature: business customer can make their listings public, other business custom
     Given i am logged in as customer with email "pravno_lice_buyer@test.com" and password "admin"
     And i want to buy 2.0 stocks
     And i offer him price of 1200.0 RSD
-    And seller id is 103
+    And seller id is 4
     When user calls POST on "/contract/customer"
     Then i should get response with status 200
 

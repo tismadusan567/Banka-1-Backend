@@ -12,6 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @CucumberOptions(features = "src/test/resources", glue = "rs.edu.raf.banka1.cucumber", tags = "not @Ignore")
 @RunWith(Cucumber.class)
-@ActiveProfiles("test")
+@ActiveProfiles("int_test")
 public class CucumberIntegrationTest {
 }

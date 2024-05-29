@@ -29,7 +29,7 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberContextConfiguration
-@ActiveProfiles("test")
+@ActiveProfiles("int_test")
 //@Sql("/bank_test.sql")
 //@DirtiesContext
 public class SpringIntegrationTest {
