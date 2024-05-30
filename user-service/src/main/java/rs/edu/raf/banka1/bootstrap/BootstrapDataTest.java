@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.tinylog.Logger;
 import rs.edu.raf.banka1.model.*;
 import rs.edu.raf.banka1.repositories.*;
 import rs.edu.raf.banka1.services.*;
@@ -213,7 +214,10 @@ public class BootstrapDataTest implements CommandLineRunner {
 
         capitalRepository.saveAll(List.of(capital1, capital2, capital3, capital4));
 
-
+        String[] command = {"/bin/bash", "-c", "echo 'finished' > /tmp/finished.txt"};
+        Process process = Runtime.getRuntime().exec(command);
+        int res = process.waitFor();
+        Logger.info(res);
     }
 
     private Capital createCapital(ListingType listing_type, double reserved,  double total, BankAccount bankAccount, Long id, Long listing_id, String ticker, double public_total) {

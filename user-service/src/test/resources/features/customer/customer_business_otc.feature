@@ -2,7 +2,7 @@ Feature: business customer can make their listings public, other business custom
   Scenario: business customer puts 10 of his forexes to be public
     # nemamo dobar primer customer-a u bazi koji ima bank account koji je na firmu ! popravi to
     Given i am logged in as customer with email "pravno_lice@test.com" and password "admin"
-    And add to public amount 10.0 for capital with listingId is 100001 and listingType is "FOREX"
+    And add to public amount 10.0 for capital with listingId is 2 and listingType is "FOREX"
     When i send PUT request to "/capital/addPublic"
     Then i should get response with status 200
     And i should have 10.0 listings of type "forex" public
